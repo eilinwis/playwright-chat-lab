@@ -7,8 +7,9 @@ import { test } from '@playwright/test'
  * mechanics, like demo.spec.ts's); Chat ("/") → Search ("/search") for the
  * second, organized into test.step()s.
  *
- * Complete the exercise below. It's split into two tests — write each one,
- * deleting its `test.fixme()` line once it passes.
+ * Complete the exercise below. It's split into three tests plus one task
+ * that isn't a test at all — write each one, deleting its `test.fixme()`
+ * line once it passes.
  *
  * Note on Test 1: once it's complete, running it won't print a plain
  * "passed" — it fails on attempt 1, then passes on the retry, so Playwright
@@ -52,4 +53,52 @@ test.describe('Homework 11: CI, parallelism & best practices', () => {
 
     // Write your code here
   })
+
+  /**
+   * Test 3 — a block that's safe to run in parallel
+   *   1. Wrap the two tests below in their own `test.describe(...)` and
+   *      call `test.describe.configure({ mode: 'parallel' })` at the top of
+   *      it — the per-block version of `fullyParallel`, so these two tests
+   *      can run at the same time on different workers instead of in order
+   *      on one.
+   *   2. Each test sends its own message from "/" ("Bananas are great" in
+   *      one, "Ostriches assemble" in the other) and asserts only on its
+   *      own last data-testid="message-user" — neither may read anything
+   *      the other wrote, or assert on a total count of messages.
+   *   3. Prove it: run this file with `--workers=2`, then again with
+   *      `--workers=1`. Same result both times, in either order — that's
+   *      the property that makes sharding across CI runners safe.
+   *
+   * Note: `lessons/playwright.config.ts` pins `workers: 1`, so pass
+   * `--workers=2` on the command line to actually see them overlap.
+   */
+  test('two independent tests, safe to run at the same time', async () => {
+    test.fixme()
+
+    // Write your code here
+  })
+
+  /**
+   * Task 4 — not a test: something in CI
+   *
+   * Nothing to assert here; this one is reviewed on your PR.
+   *
+   *   1. Read `.github/workflows/playwright.yml`. Find the three things a
+   *      Playwright job needs that `ci.yml` doesn't have, and say what each
+   *      is for in your PR description.
+   *   2. Reproduce the sharded run locally, exactly as the `e2e` and
+   *      `report` jobs do it:
+   *
+   *        npx playwright test --shard=1/2 --reporter=blob
+   *        npx playwright test --shard=2/2 --reporter=blob
+   *        npx playwright merge-reports --reporter=html ./blob-report
+   *        npx playwright show-report
+   *
+   *      Two runs, two blob reports, one merged HTML report. Include the
+   *      final summary line of each shard in your PR description.
+   *   3. Add one step to the `lessons` job in that workflow: upload
+   *      `test-results/` (traces and videos, not just the HTML report) as
+   *      an artifact named `lessons-traces`, with `if: always()` so it also
+   *      runs when the tests failed. Commit it with your homework.
+   */
 })
