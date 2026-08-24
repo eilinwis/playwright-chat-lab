@@ -7,15 +7,13 @@
 ![GitHub Repo forks](https://img.shields.io/github/forks/eilinwis/playwright-chat-lab?style=flat-square&color=ffa500)
 ![GitHub Repo commits](https://badgen.net/github/commits/eilinwis/playwright-chat-lab/main?color=purple)
 
-A React/TypeScript chat application built as a purpose-made target for practicing Playwright end-to-end testing, paired with a self-contained, in-repo Playwright course that teaches E2E testing against it.
-
-**No backend ships by default** — "Funny mode" is a small, deterministic reply engine (canned jokes, plus real answers to real questions about the app itself — try asking it "how does reset work?"). `src/api/chatApi.ts` implements the full request/response contract (`GET /api/messages`, `POST /api/chat`, `POST /api/reset`) for anyone who wants to point the app at a server, but nothing is required to run it — by design, so the app and every test stay free, offline, and deterministic.
+A React/TypeScript chat application built for practicing Playwright e2e testing on your own or within 11-lessons course.
 
 ## Overview
 
 Two things, developed together:
 
-1. **A small chat web app** (`src/`) — client-side routing, local persistence, and a testable UI (`data-testid`s, predictable loading/disabled states).
+1. **A small chat web app** (`src/`) — client-side routing, local persistence, and a testable UI.
 2. **A Playwright course** (`lessons/`) — lessons that use the app above as the system under test, each pairing an explanation with a working demo and a homework exercise.
 
 Aimed at engineers who know JS/TypeScript and want to learn or teach Playwright against a realistic small app.
@@ -25,9 +23,7 @@ Aimed at engineers who know JS/TypeScript and want to learn or teach Playwright 
 - **Five-screen chat app**: Chat, Search, Message history, Playground, Help.
 - **Deterministic offline mode ("Funny mode")**: canned, letter-keyed replies, no network — the app and every test run without a backend.
 - **A small assistant for the app itself** (`src/lib/appAssistantReply.ts`): ask it a real question ("how does reset work?", "what is funny mode?", "are you a real AI?") and it answers honestly, instead of joking — only for messages phrased as a question, so it never collides with a canned test message.
-- **Optional HTTP backend**: typed `fetch` client (`src/api/chatApi.ts`) implements the full contract (`GET /api/messages`, `POST /api/chat`, `POST /api/reset`) — used automatically when Funny mode is off, but no backend ships in this repo.
 - **Client-side history**: persisted to `localStorage`, merging server and local exchanges with de-duplication.
-- **Page Object Model E2E suite** (`e2e/`): one page-object class per screen via a `PageManager`.
 - **11-lesson Playwright course** (`lessons/`), from anatomy of a test through CI, parallelism, and best practices.
 - **Strict TypeScript** (`strict`, `noUnusedLocals`, `noUncheckedSideEffectImports`, …) and **GitHub Actions CI**: `ci.yml` (lint + build, on push/PR to `main`) and `e2e.yml` (runs one spec file on demand, see [Testing Strategy](#testing-strategy)).
 
