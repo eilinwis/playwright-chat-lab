@@ -1,11 +1,11 @@
 # Playwright Chat Lab 💬
 
-![CI](https://github.com/eilinwis/ai-assistant-chat/actions/workflows/ci.yml/badge.svg)
-![e2e](https://github.com/eilinwis/ai-assistant-chat/actions/workflows/e2e.yml/badge.svg)
-![GitHub Repo stars](https://img.shields.io/github/stars/eilinwis/ai-assistant-chat?style=flat-square&color=ffa500)
-![GitHub Repo contributors](https://img.shields.io/github/contributors/eilinwis/ai-assistant-chat?style=flat-square&color=ffa500)
-![GitHub Repo forks](https://img.shields.io/github/forks/eilinwis/ai-assistant-chat?style=flat-square&color=ffa500)
-![GitHub Repo commits](https://badgen.net/github/commits/eilinwis/ai-assistant-chat/main?color=purple)
+![CI](https://github.com/eilinwis/playwright-chat-lab/actions/workflows/ci.yml/badge.svg)
+![e2e](https://github.com/eilinwis/playwright-chat-lab/actions/workflows/e2e.yml/badge.svg)
+![GitHub Repo stars](https://img.shields.io/github/stars/eilinwis/playwright-chat-lab?style=flat-square&color=ffa500)
+![GitHub Repo contributors](https://img.shields.io/github/contributors/eilinwis/aplaywright-chat-lab?style=flat-square&color=ffa500)
+![GitHub Repo forks](https://img.shields.io/github/forks/eilinwis/playwright-chat-lab?style=flat-square&color=ffa500)
+![GitHub Repo commits](https://badgen.net/github/commits/eilinwis/playwright-chat-lab/main?color=purple)
 
 A React/TypeScript chat application built as a purpose-made target for practicing Playwright end-to-end testing, paired with a self-contained, in-repo Playwright course that teaches E2E testing against it.
 
