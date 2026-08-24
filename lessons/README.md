@@ -36,7 +36,8 @@ run: `npx playwright show-report`.
 1. Branch off `main`: `git checkout -b <your-name>/lesson-<NN>`.
 2. Solve the lesson's `homework.spec.ts` and delete its `test.fixme()`.
 3. Run it locally until it passes.
-4. Commit and push the branch.
-5. Open a PR with <[homework] lesson <NN>> .
-6. Comment on the PR: `e2e lessons/<lesson-folder>/homework.spec.ts` — CI
-   runs just that file and reports back as a check on the PR.
+4. Place your `homework.spec.ts` into e2e/homework-done and rename it as lesson 
+5. Commit and push the branch.
+6. Open a PR with <[homework] lesson <NN>> .
+7. Comment on the PR: `e2e e2e/homework-done` — CI runs just that file and reports back as a check on the PR.
+NOTE: check opened PR #28 for reference
