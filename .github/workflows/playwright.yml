@@ -125,3 +125,14 @@ jobs:
           name: lessons-report
           path: playwright-report/
           retention-days: 7
+
+      # Lesson 11, task 4: the HTML report says *what* failed; the traces and
+      # videos under test-results/ are what show why. if: always() because
+      # that's precisely the run where they're worth having.
+      - name: Upload traces and videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lessons-traces
+          path: test-results/
+          retention-days: 7

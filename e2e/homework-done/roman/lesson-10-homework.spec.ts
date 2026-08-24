@@ -5,8 +5,9 @@ import { test, expect } from '@playwright/test'
  * Homework 10 — Debugging & visual tools
  *
  * Screens under test: Chat ("/") → Search ("/search") for the trace, and
- * Playground ("/playground") for the screenshot — earlier flows, capturing
- * evidence about them this time instead of just asserting on them.
+ * Playground ("/playground") for the screenshots — earlier flows, capturing
+ * evidence about them this time instead of just asserting on them, and
+ * attaching that evidence to the HTML report.
  */
 test.describe('Homework 10: Debugging & visual tools', () => {
   /**
@@ -46,5 +47,39 @@ test.describe('Homework 10: Debugging & visual tools', () => {
     expect(fs.existsSync(imagePath)).toBe(true)
     // Present isn't enough — a zero-byte file would pass existsSync too.
     expect(fs.statSync(imagePath).size).toBeGreaterThan(0)
+  })
+
+  /**
+   * Test 3 — attaching evidence to the report
+   */
+  test('two screenshots attached to the report tell the before/after story', async ({
+    page,
+  }, testInfo) => {
+    await page.goto('/playground')
+    const gallery = page.getByTestId('playground-section-gallery')
+    await expect(gallery).toBeVisible()
+
+    const beforePath = testInfo.outputPath('gallery-section.png')
+    await gallery.screenshot({ path: beforePath })
+    // Saving the PNG only puts it on disk; attaching it files it under this
+    // test in the HTML report, where whoever opens a CI failure will find it
+    // without knowing which directory to dig through.
+    await testInfo.attach('gallery section (before)', {
+      path: beforePath,
+      contentType: 'image/png',
+    })
+
+    await page.getByTestId('gallery-thumb-vite').click()
+
+    const afterPath = testInfo.outputPath('gallery-section-vite.png')
+    await gallery.screenshot({ path: afterPath })
+    await testInfo.attach('gallery section (after)', {
+      path: afterPath,
+      contentType: 'image/png',
+    })
+
+    // The assertion only proves the wiring — the point of the exercise is
+    // seeing both images inline under this test in `npx playwright show-report`.
+    expect(testInfo.attachments).toHaveLength(2)
   })
 })

@@ -4,7 +4,9 @@ import { test, expect } from '@playwright/test'
  * Homework 9 — Network interception & API mocking
  *
  * Screen under test: Chat ("/") — mocking the two endpoints demo.spec.ts
- * didn't cover: POST /api/reset, and a deliberately slow POST /api/chat.
+ * didn't cover (POST /api/reset and a deliberately slow POST /api/chat), and
+ * then asserting on the request the app sends rather than the reply it gets
+ * back.
  */
 test.describe('Homework 9: Network interception & API mocking', () => {
   /**
@@ -78,5 +80,49 @@ test.describe('Homework 9: Network interception & API mocking', () => {
       'A slow but mocked reply.',
     )
     await expect(page.getByTestId('loading-indicator')).toHaveCount(0)
+  })
+
+  /**
+   * Test 3 — asserting the request, not the reply
+   */
+  test('the app sends the exact payload src/api/chatApi.ts promises', async ({ page }) => {
+    await page.route('**/api/messages', (route) => route.fulfill({ json: { messages: [] } }))
+
+    // A handler holds the Request the app built, not just the response it
+    // gets to decide — capture both into the test's own scope.
+    let sentMethod: string | undefined
+    let sentBody: unknown
+    await page.route('**/api/chat', async (route) => {
+      sentMethod = route.request().method()
+      sentBody = route.request().postDataJSON()
+      await route.fulfill({
+        json: {
+          reply: {
+            id: 'mock-payload-reply',
+            role: 'assistant',
+            content: 'Payload received.',
+            timestamp: new Date().toISOString(),
+          },
+        },
+      })
+    })
+
+    await page.goto('/')
+    await expect(page.getByTestId('chat-input')).toBeEnabled({ timeout: 15_000 })
+    await page.getByTestId('funny-mode-toggle').uncheck()
+
+    await page.getByTestId('chat-input').fill('Ostriches assemble')
+    await page.getByTestId('send-button').click()
+
+    // The route handler runs asynchronously — waiting for the mocked reply
+    // to render is what guarantees the captured variables are filled in by
+    // the time they're read.
+    await expect(page.getByTestId('message-assistant').last()).toHaveText('Payload received.')
+
+    expect(sentMethod).toBe('POST')
+    // It sends `message`, not `text` or `content`. A mocked reply renders
+    // either way, so this is the only assertion that catches that contract
+    // (src/api/chatApi.ts) changing.
+    expect(sentBody).toEqual({ message: 'Ostriches assemble' })
   })
 })
