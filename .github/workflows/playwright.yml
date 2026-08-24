@@ -7,11 +7,11 @@
 #             them is the answer to "did the suite pass?".
 name: playwright
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
 
 jobs:
   e2e:
