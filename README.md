@@ -3,7 +3,7 @@
 ![CI](https://github.com/eilinwis/playwright-chat-lab/actions/workflows/ci.yml/badge.svg)
 ![e2e](https://github.com/eilinwis/playwright-chat-lab/actions/workflows/e2e.yml/badge.svg)
 ![GitHub Repo stars](https://img.shields.io/github/stars/eilinwis/playwright-chat-lab?style=flat-square&color=ffa500)
-![GitHub Repo contributors](https://img.shields.io/github/contributors/eilinwis/aplaywright-chat-lab?style=flat-square&color=ffa500)
+![GitHub Repo contributors](https://img.shields.io/github/contributors/eilinwis/playwright-chat-lab?style=flat-square&color=ffa500)
 ![GitHub Repo forks](https://img.shields.io/github/forks/eilinwis/playwright-chat-lab?style=flat-square&color=ffa500)
 ![GitHub Repo commits](https://badgen.net/github/commits/eilinwis/playwright-chat-lab/main?color=purple)
 
