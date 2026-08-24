@@ -81,6 +81,57 @@ test.describe('Lesson 9: Network interception & API mocking', () => {
     )
   })
 
+  test('the route handler can read the request the app actually sent', async ({ page }) => {
+    await page.route('**/api/messages', (route) => route.fulfill({ json: { messages: [] } }))
+
+    // A handler doesn't only decide the response — it also holds the
+    // Request the app built. Matching a URL proves the app called
+    // *something*; reading the body proves it called it *correctly*.
+    let sentBody: unknown
+    await page.route('**/api/chat', async (route) => {
+      sentBody = route.request().postDataJSON()
+      await route.fulfill({
+        json: {
+          reply: {
+            id: 'mock-reply-2',
+            role: 'assistant',
+            content: 'Payload received.',
+            timestamp: new Date().toISOString(),
+          },
+        },
+      })
+    })
+
+    await page.goto('/')
+    await expect(page.getByTestId('chat-input')).toBeEnabled({ timeout: 15_000 })
+    await page.getByTestId('funny-mode-toggle').uncheck()
+    await page.getByTestId('chat-input').fill('Ducks like bread')
+    await page.getByTestId('send-button').click()
+
+    await expect(page.getByTestId('message-assistant').last()).toHaveText('Payload received.')
+    // src/api/chatApi.ts builds this body — the test now fails if that
+    // contract ever changes, instead of passing on a mocked reply alone.
+    expect(sentBody).toEqual({ message: 'Ducks like bread' })
+  })
+
+  test('route.abort() simulates the network dropping, not the server answering', async ({ page }) => {
+    await page.route('**/api/messages', (route) => route.fulfill({ json: { messages: [] } }))
+    // fulfill({ status: 500 }) is a server that answered with an error;
+    // abort() is no answer at all — DNS failure, offline, connection reset.
+    // The app's fetch() rejects instead of resolving with !res.ok, and this
+    // screen happens to surface both the same way.
+    await page.route('**/api/chat', (route) => route.abort('failed'))
+
+    await page.goto('/')
+    await expect(page.getByTestId('chat-input')).toBeEnabled({ timeout: 15_000 })
+    await page.getByTestId('funny-mode-toggle').uncheck()
+    await page.getByTestId('chat-input').fill('this request never lands')
+    await page.getByTestId('send-button').click()
+
+    await expect(page.getByTestId('error-message')).toHaveText('Error: failed to get AI response')
+    await expect(page.getByTestId('loading-indicator')).toHaveCount(0)
+  })
+
   test('a failed POST /api/chat shows the app\'s own error message', async ({ page }) => {
     await page.route('**/api/messages', (route) => route.fulfill({ json: { messages: [] } }))
     await page.route('**/api/chat', (route) => route.fulfill({ status: 500, json: { error: 'boom' } }))

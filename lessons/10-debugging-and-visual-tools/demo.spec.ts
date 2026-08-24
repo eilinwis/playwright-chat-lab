@@ -56,6 +56,30 @@ test.describe('Lesson 10: Debugging & visual tools', () => {
     expect(fs.existsSync(inputPath)).toBe(true)
   })
 
+  test('testInfo.attach() files evidence under the test in the HTML report', async ({
+    page,
+  }, testInfo) => {
+    await page.goto('/')
+    await expect(page.getByTestId('chat-input')).toBeEnabled({ timeout: 15_000 })
+
+    const shotPath = testInfo.outputPath('chat-screen.png')
+    await page.screenshot({ path: shotPath })
+
+    // Saving the file only puts it on disk; attaching it puts it *in the
+    // report*, under this test, where whoever opens a CI failure will
+    // actually find it. Attachments also take a body directly — handy for
+    // dumping the JSON a test was working with, not just images.
+    await testInfo.attach('chat screen', { path: shotPath, contentType: 'image/png' })
+    await testInfo.attach('what the test typed', {
+      body: JSON.stringify({ message: 'nothing yet' }, null, 2),
+      contentType: 'application/json',
+    })
+
+    expect(testInfo.attachments.map((a) => a.name)).toEqual(
+      expect.arrayContaining(['chat screen', 'what the test typed']),
+    )
+  })
+
   test('a context created with recordVideo saves a .webm once the context closes', async ({
     browser,
   }, testInfo) => {

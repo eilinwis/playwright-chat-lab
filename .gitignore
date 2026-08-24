@@ -11,3 +11,5 @@ env.production
 .DS_Store
 test-results/
 playwright-report/
+blob-report/
+all-blob-reports/

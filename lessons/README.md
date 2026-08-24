@@ -28,8 +28,20 @@ npx playwright test --config=lessons/playwright.config.ts lessons/01-getting-sta
 npx playwright test --config=lessons/playwright.config.ts
 ```
 
-Useful flags: `--ui`, `--debug`, `--headed`/`--headless`. Report after a
-run: `npx playwright show-report`.
+Useful flags: `--ui` (the runner UI — Lesson 10), `--debug` (the
+Inspector), `--headed`/`--headless`, `--workers=N`, `--shard=1/2`,
+`--reporter=line|github|blob`. Report after a run: `npx playwright
+show-report`.
+
+## CI
+
+- `.github/workflows/ci.yml` — lint, unit tests, build on every push/PR.
+- `.github/workflows/playwright.yml` — the e2e suite sharded across two
+  runners, the merged HTML report, and this course's own tests. Lesson 11
+  reads it line by line.
+- `.github/workflows/e2e.yml` — runs one spec file on demand when you
+  comment `e2e <path>` on a PR, and reports back as a check. That's what
+  the homework flow below uses.
 
 ## Submitting homework
 

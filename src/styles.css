@@ -464,7 +464,14 @@ body {
 
 .chat-message__media {
   display: block;
-  max-width: min(100%, 280px);
+  /* Cap in px, not min(100%, 280px): a percentage max-width is ignored when
+   * the flex layout asks the image how wide it wants to be, so the bubble
+   * was sized to the gif's intrinsic 480px while the gif itself rendered at
+   * 280px — 200px of empty grey. `width: 100%` keeps it shrinking inside a
+   * narrow bubble. */
+  width: 100%;
+  max-width: 280px;
+  height: auto;
   margin-top: 0.5rem;
   border-radius: 8px;
 }
