@@ -7,6 +7,8 @@
 #             them is the answer to "did the suite pass?".
 name: playwright
 
+# NOTE - commented for the main flow
+# TODO: Uncomment while doing lesson 11
 # on:
 #   push:
 #     branches: [main]
