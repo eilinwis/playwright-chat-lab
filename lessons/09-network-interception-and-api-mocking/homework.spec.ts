@@ -64,4 +64,30 @@ test.describe('Homework 9: Network interception & API mocking', () => {
 
     // Write your code here
   })
+
+  /**
+   * Test 3 — asserting the request, not the reply
+   *   1. Register a route for "**\/api/messages" that fulfills with
+   *      `{ messages: [] }`.
+   *   2. Register a route for "**\/api/chat" whose handler, before
+   *      fulfilling, captures the outgoing request into a variable declared
+   *      in the test: `route.request().postDataJSON()` (and, separately,
+   *      `route.request().method()`). Fulfill with any mocked
+   *      `{ reply: {...} }`.
+   *   3. Go to "/", wait for the chat input, uncheck the funny mode toggle,
+   *      and send "Ostriches assemble".
+   *   4. Wait for your mocked reply to show up on screen first — the route
+   *      handler runs asynchronously, so asserting on the captured variable
+   *      before the reply renders can read it while it's still undefined.
+   *   5. Assert the captured method is "POST" and the captured body equals
+   *      `{ message: 'Ostriches assemble' }` exactly (toEqual) — the
+   *      contract `src/api/chatApi.ts` promises. Note it sends `message`,
+   *      not `text` or `content`: a mocked reply renders either way, so
+   *      only this assertion can catch it if that ever changes.
+   */
+  test('the app sends the exact payload src/api/chatApi.ts promises', async () => {
+    test.fixme()
+
+    // Write your code here
+  })
 })
