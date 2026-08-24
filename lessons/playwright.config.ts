@@ -6,7 +6,7 @@ const projectRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
 
 /**
  * Standalone config for the /lessons course, separate from the project's
- * own e2e/ config. Lessons test this app itself (the "AI Assistant Chat"
+ * own e2e/ config. Lessons test this app itself (the "Playwright Chat Lab"
  * demo), so this config points at it directly and starts the dev server
  * for you.
  */

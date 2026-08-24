@@ -49,12 +49,18 @@ const TOPICS: Topic[] = [
     keywords: ['who are you', 'what are you', 'are you ai', 'are you real', 'real ai'],
     example: 'Are you a real AI?',
     reply:
-      "I'm not a real AI — just a small, honest assistant for this app itself. Its POST /api/chat endpoint is ready for a real one, though; wire up a key and I'd hand you off to it.",
+      "I'm not a real AI — just a small, honest assistant for this app itself, here so the chat has something deterministic to say while you practice testing it.",
   },
   {
     keywords: ['help'],
     example: 'How do I get help?',
     reply: 'Check the Help screen for troubleshooting — common issues and what causes them.',
+  },
+  {
+    keywords: ['your name', 'why is this called', 'why are you called', "why's it called"],
+    example: 'Why is this called Playwright Chat Lab?',
+    reply:
+      "This project is called \"Playwright Chat Lab\" because that's what it is — a chat app built as a lab bench for Playwright practice, with an in-repo course to go with it.",
   },
   {
     keywords: ['playwright', 'end-to-end', 'e2e', 'testing'],
@@ -72,13 +78,7 @@ const TOPICS: Topic[] = [
     keywords: ['backend', 'api', 'llm', 'model'],
     example: 'Is there a real backend?',
     reply:
-      "No real backend ships in this repo, so non-funny-mode replies fail by default. src/api/chatApi.ts already implements the full GET /api/messages / POST /api/chat / POST /api/reset contract a real LLM backend would need — it's AI-ready, just not AI-connected.",
-  },
-  {
-    keywords: ['your name', 'why is this called', 'why are you called', "why's it called"],
-    example: 'Why is this called AI Assistant Chat?',
-    reply:
-      "This project is called \"AI Assistant Chat\" for the shape of it — a chat UI built around an assistant contract — not because a real LLM is wired in by default. That's earned architecturally (see src/api/chatApi.ts), not by a live model.",
+      "No real backend ships in this repo, so non-funny-mode replies fail by default. src/api/chatApi.ts implements the full GET /api/messages / POST /api/chat / POST /api/reset contract, so pointing it at a server of your own is all it takes.",
   },
   {
     keywords: ['what can you do', 'what do you do', 'chat screen'],

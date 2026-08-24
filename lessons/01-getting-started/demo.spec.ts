@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-// Screen under test: Chat ("/") — this repo's own AI Assistant Chat app.
+// Screen under test: Chat ("/") — this repo's own Playwright Chat Lab app.
 
 test.describe('Lesson 1: Getting started', () => {
   test.beforeEach(async ({ page }) => {
@@ -8,9 +8,9 @@ test.describe('Lesson 1: Getting started', () => {
   })
 
   test('the chat page loads with the expected title and heading', async ({ page }) => {
-    await expect(page).toHaveTitle('AI Assistant Chat')
+    await expect(page).toHaveTitle('Playwright Chat Lab')
     await expect(
-      page.getByRole('heading', { name: 'AI Assistant Chat', level: 1 }),
+      page.getByRole('heading', { name: 'Playwright Chat Lab', level: 1 }),
     ).toBeVisible()
   })
 

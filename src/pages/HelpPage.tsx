@@ -3,7 +3,7 @@ export default function HelpPage() {
     <div className="panel">
       <h2 className="panel__heading">Help</h2>
       <p className="panel__lede">
-        Common issues and quick fixes for the AI Assistant Chat demo.
+        Common issues and quick fixes for the Playwright Chat Lab demo.
       </p>
       <div className="help-list">
         <details
