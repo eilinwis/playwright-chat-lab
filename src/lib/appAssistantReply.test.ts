@@ -46,8 +46,8 @@ describe('getAppAssistantReply', () => {
   it('answers questions about the course, the backend, and the project name', () => {
     expect(getAppAssistantReply('Where do I find the homework?')).toMatch(/lessons\/ folder/)
     expect(getAppAssistantReply('Is there a real backend?')).toMatch(/No real backend ships/)
-    expect(getAppAssistantReply('Why is this called AI Assistant Chat?')).toMatch(
-      /earned architecturally/,
+    expect(getAppAssistantReply('Why is this called Playwright Chat Lab?')).toMatch(
+      /a lab bench for Playwright practice/,
     )
   })
 

@@ -1,4 +1,4 @@
-# AI Assistant Chat 💬
+# Playwright Chat Lab 💬
 
 ![CI](https://github.com/eilinwis/ai-assistant-chat/actions/workflows/ci.yml/badge.svg)
 ![e2e](https://github.com/eilinwis/ai-assistant-chat/actions/workflows/e2e.yml/badge.svg)
@@ -9,7 +9,7 @@
 
 A React/TypeScript chat application built as a purpose-made target for practicing Playwright end-to-end testing, paired with a self-contained, in-repo Playwright course that teaches E2E testing against it.
 
-**No real AI ships by default** — "Funny mode" is a small, deterministic reply engine (canned jokes, plus real answers to real questions about the app itself — try asking it "how does reset work?"). The name is earned *architecturally*, not by a live model: `src/api/chatApi.ts` already implements the full request/response contract (`GET /api/messages`, `POST /api/chat`, `POST /api/reset`) a real LLM backend would need — it's AI-ready, just not AI-connected, by design, so the app and every test stay free, offline, and deterministic.
+**No backend ships by default** — "Funny mode" is a small, deterministic reply engine (canned jokes, plus real answers to real questions about the app itself — try asking it "how does reset work?"). `src/api/chatApi.ts` implements the full request/response contract (`GET /api/messages`, `POST /api/chat`, `POST /api/reset`) for anyone who wants to point the app at a server, but nothing is required to run it — by design, so the app and every test stay free, offline, and deterministic.
 
 ## Overview
 
@@ -25,7 +25,7 @@ Aimed at engineers who know JS/TypeScript and want to learn or teach Playwright 
 - **Five-screen chat app**: Chat, Search, Message history, Playground, Help.
 - **Deterministic offline mode ("Funny mode")**: canned, letter-keyed replies, no network — the app and every test run without a backend.
 - **A small assistant for the app itself** (`src/lib/appAssistantReply.ts`): ask it a real question ("how does reset work?", "what is funny mode?", "are you a real AI?") and it answers honestly, instead of joking — only for messages phrased as a question, so it never collides with a canned test message.
-- **AI-ready, not AI-connected**: typed `fetch` client (`src/api/chatApi.ts`) implements the full contract (`GET /api/messages`, `POST /api/chat`, `POST /api/reset`) a real LLM backend would need — used automatically when Funny mode is off, but no backend ships in this repo.
+- **Optional HTTP backend**: typed `fetch` client (`src/api/chatApi.ts`) implements the full contract (`GET /api/messages`, `POST /api/chat`, `POST /api/reset`) — used automatically when Funny mode is off, but no backend ships in this repo.
 - **Client-side history**: persisted to `localStorage`, merging server and local exchanges with de-duplication.
 - **Page Object Model E2E suite** (`e2e/`): one page-object class per screen via a `PageManager`.
 - **11-lesson Playwright course** (`lessons/`), from anatomy of a test through CI, parallelism, and best practices.
@@ -67,7 +67,7 @@ npm run build
 ## Project Structure
 
 ```
-ai-assistant-chat/
+playwright-chat-lab/
 ├── .github/workflows/
 │   ├── ci.yml                  # lint + build on push/PR to main
 │   └── e2e.yml                 # runs one spec file on a PR comment: "e2e <path>"

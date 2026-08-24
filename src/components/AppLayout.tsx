@@ -11,7 +11,7 @@ export default function AppLayout() {
   return (
     <div className={`chat-page${isWide ? ' chat-page--wide' : ''}`}>
       <img src={logo} style={{ width: '100px', height: '60px' }} onClick={() => navigate('/')} />
-      <h1 className="chat-page__title">AI Assistant Chat</h1>
+      <h1 className="chat-page__title">Playwright Chat Lab</h1>
       <nav className="app-nav" aria-label="Main">
         <NavLink
           to="/"
