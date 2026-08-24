@@ -51,4 +51,25 @@ test.describe('Homework 10: Debugging & visual tools', () => {
 
     // Write your code here
   })
+
+  /**
+   * Test 3 — attaching evidence to the report
+   *   1. Go to "/playground" and screenshot the gallery section
+   *      (data-testid="playground-section-gallery") to
+   *      `testInfo.outputPath('gallery-section.png')`.
+   *   2. Attach it to the test:
+   *      `await testInfo.attach('gallery section', { path, contentType: 'image/png' })`.
+   *   3. Click the "vite" thumbnail (data-testid="gallery-thumb-vite") and
+   *      attach a second screenshot of the same section under a different
+   *      name — two attachments, before and after.
+   *   4. Assert `testInfo.attachments` has a length of 2.
+   *   5. Run `npx playwright show-report` afterward and open this test —
+   *      both images should be inline under it. That's the point of the
+   *      exercise; the assertion just proves the wiring.
+   */
+  test('two screenshots attached to the report tell the before/after story', async () => {
+    test.fixme()
+
+    // Write your code here
+  })
 })
