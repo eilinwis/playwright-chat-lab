@@ -61,37 +61,6 @@ npx playwright show-report
  `e2e.yml` doesn't run automatically — comment `e2e <path/to/spec.ts>` on a PR and it runs just
 that file, reporting back as a check on the PR's commit.
 
-## Project Structure
-
-```
-playwright-chat-lab/
-├── .github/workflows/
-│   ├── ci.yml                  # lint + unit tests + build on push/PR to main
-│   ├── e2e.yml                 # runs one spec file on a PR comment: "e2e <path>"
-│   └── playwright.yml          # sharded e2e run, merged report, lessons suite
-├── config/                     # config files kept out of the repo root
-│   ├── tsconfig.app.json       # TS for src/, referenced from ./tsconfig.json
-│   ├── tsconfig.node.json      # TS for the config files themselves
-│   └── vitest.config.ts        # unit tests: npm run test points at it
-├── src/
-│   ├── api/chatApi.ts          # client for the optional external backend
-│   ├── components/             # AppLayout, ChatWindow, ChatInput, ChatMessage, etc.
-│   ├── lib/                    # funnyReply.ts, chatHistoryStorage.ts
-│   ├── pages/                  # ChatPage, SearchChatsPage, HistoryPage, PlaygroundPage, HelpPage
-│   ├── public/                 # static assets copied verbatim into the build
-│   └── types/                  # Message, ChatExchange
-├── e2e/
-│   ├── pages/                  # Page Object Model: PageManager + per-screen classes
-│   ├── homework-done/          # Homework specs that students developed
-│   └── tests/                  # chat, search, navigation, help specs
-├── lessons/
-│   ├── playwright.config.ts    # standalone config; auto-starts the dev server
-│   └── 01-getting-started … 11-ci-parallelism-and-best-practices/
-├── index.html                  # Vite entry point, has to stay at the root
-├── vite.config.ts              # app build; publicDir points at src/public
-└── playwright.config.ts        # config for e2e/
-```
-
 ## Contributing
 
 All types of contributions are very welcome!
