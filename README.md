@@ -68,4 +68,4 @@ For homework assignments please refer to Submitting homework of lessons/README.m
 
 ## License
 
-No license file is currently included. All rights reserved by default until one is added.
+Playwright Chat Lab is open-source software licensed under the [MIT License](LICENSE).
