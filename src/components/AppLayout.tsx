@@ -1,5 +1,4 @@
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
-import logo from '../assets/logo.png'
 
 const navClass = ({ isActive }: { isActive: boolean }) =>
   `app-nav__link${isActive ? ' app-nav__link--active' : ''}`
@@ -10,8 +9,17 @@ export default function AppLayout() {
   const isWide = location.pathname === '/playground'
   return (
     <div className={`chat-page${isWide ? ' chat-page--wide' : ''}`}>
-      <img src={logo} style={{ width: '100px', height: '60px' }} onClick={() => navigate('/')} />
-      <h1 className="chat-page__title">Playwright Chat Lab</h1>
+      <header className="app-header">
+        <button
+          type="button"
+          className="app-brand"
+          onClick={() => navigate('/')}
+          aria-label="Go to the chat screen"
+        >
+          <span className="app-brand__logo" aria-hidden="true" />
+        </button>
+        <h1 className="chat-page__title">Playwright Chat Lab</h1>
+      </header>
       <nav className="app-nav" aria-label="Main">
         <NavLink
           to="/"

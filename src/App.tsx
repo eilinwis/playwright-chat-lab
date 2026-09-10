@@ -6,6 +6,7 @@ import HelpPage from './pages/HelpPage'
 import HistoryPage from './pages/HistoryPage'
 import PlaygroundPage from './pages/PlaygroundPage'
 import SearchChatsPage from './pages/SearchChatsPage'
+import ThemeSwitcher from './components/ThemeSwitcher'
 import './styles.css'
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
     <BrowserRouter>
       <ChatHistoryProvider>
         <div className="app">
+          <ThemeSwitcher />
           <Routes>
             <Route element={<AppLayout />}>
               <Route path="/" element={<ChatPage />} />
