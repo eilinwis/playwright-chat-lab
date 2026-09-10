@@ -11,6 +11,10 @@ A React/TypeScript chat application built for practicing Playwright e2e testing 
 
 ## Overview
 
+<div align="center" style="text-align: center">
+    <img src="src/assets/readme_image.png" alt="Playwright Chat Lab chat screen" width="708" />
+</div>
+
 Two things, developed together:
 
 1. **A small chat web app** (`src/`) — client-side routing, local persistence, and a testable UI.
