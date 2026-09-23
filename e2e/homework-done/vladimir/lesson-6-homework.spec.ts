@@ -17,16 +17,7 @@ const test = base.extend<Fixtures>({
     await use(send)
   },
 })
-test('searching finds a message sent via the sendMessage fixture', async ({ page }) => {
-  await page.getByPlaceholder('Type words from a message…').fill('Spaceships')
-  const results = page.locator('li.search-results__item')
-  await expect(results).toHaveCount(1)
-  const texts = results.first().locator('.history-exchange__text')
-  await expect(texts.first()).toHaveText('Spaceships are neat')
-  await expect(texts.last()).toHaveText(
-    'Socks in the dryer are off-chain NFTs with zero provenance.',
-  )
-})
+
   test('searching finds a message sent via the sendMessage fixture', async ({ page }) => {
     await page.getByPlaceholder('Type words from a message…').fill('Spaceships')
     const results = page.locator('li.search-results__item')

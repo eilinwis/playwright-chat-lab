@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
-import { ChatPage } from './pages/ChatPage'
-import { HistoryPage } from './pages/HistoryPage'
+import { ChatPage } from './testPages/ChatPage'
+import { HistoryPage } from './testPages/HistoryPage'
 
 
 test.describe('Homework 7: Page Object Model', () => {
