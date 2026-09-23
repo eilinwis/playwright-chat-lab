@@ -1,6 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 
-
 export class ChatPage {
   readonly page: Page
   readonly funnyModeToggle: Locator
@@ -18,7 +17,6 @@ export class ChatPage {
     this.page = page
   }
 
-
   async sendMessage(text: string) {
     await this.chatInput.fill(text)
     await this.sendButton.click()
@@ -29,6 +27,4 @@ export class ChatPage {
     await this.page.goto('/')
     await expect(this.chatInput).toBeEnabled({ timeout: 15_000 })
   }
-
-
 }

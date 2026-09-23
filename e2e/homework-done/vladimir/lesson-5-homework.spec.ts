@@ -1,11 +1,9 @@
 import { test, expect } from '@playwright/test'
 
-
 test.describe('Homework 5: Custom widgets & complex interactions', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/playground')
   })
-
 
   test('navigating and selecting a date in the calendar, then confirming the modal', async ({ page }) => {
     const heading = page.getByTestId('calendar-heading')
@@ -48,7 +46,6 @@ test.describe('Homework 5: Custom widgets & complex interactions', () => {
     await expect(frontendToggle).toHaveAttribute('aria-pressed', 'false')
     await expect(results).toHaveCount(5)
   })
-
 
   test('prev/next cancel out, today is marked in the grid, and clicking the active thumbnail again is a no-op', async ({ page }) => {
     const heading = page.getByTestId('calendar-heading')

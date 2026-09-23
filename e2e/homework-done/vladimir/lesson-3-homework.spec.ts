@@ -29,6 +29,5 @@ test.describe('Homework 3: Assertions & auto-waiting', () => {
     await expect.soft(firstTexts.last()).toHaveText(
       'Gravity is just the Earth being clingy in a scientifically dignified way.',
     )
-
   })
 })

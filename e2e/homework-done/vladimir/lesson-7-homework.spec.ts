@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test'
 import { ChatPage } from './testPages/ChatPage'
 import { HistoryPage } from './testPages/HistoryPage'
 
-
 test.describe('Homework 7: Page Object Model', () => {
   test('sent messages show up as history entries via page objects', async ({ page }) => {
     const chatPage = new ChatPage(page)

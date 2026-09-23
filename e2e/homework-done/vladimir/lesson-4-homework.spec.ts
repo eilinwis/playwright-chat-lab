@@ -10,7 +10,11 @@ test.describe('Homework 4: Forms & input', () => {
     await expect(chatInput).toBeEnabled({ timeout: 15_000 })
     await expect(funnyMode).toBeChecked()
 
-
+    await funnyMode.uncheck()
+    await expect(funnyMode).not.toBeChecked()
+    await funnyMode.check()
+    await expect(funnyMode).toBeChecked()
+    
     await chatInput.fill('    ')
     await expect(sendButton).toBeDisabled()
     await chatInput.fill('')
@@ -18,7 +22,6 @@ test.describe('Homework 4: Forms & input', () => {
     await chatInput.press('Shift+Enter')
     await chatInput.pressSequentially('Then values')
     await expect(chatInput).toHaveValue('Variables first\nThen values')
-    
     await chatInput.press('Enter')
     await expect(chatInput).toHaveValue('')
     await expect(page.getByTestId('message-assistant').last()).toHaveText(

@@ -13,6 +13,5 @@ export class HistoryPage {
 
   async goto() {
     await this.page.getByTestId('nav-tab-history').click()
-    
   }
 }
