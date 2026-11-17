@@ -1,24 +1,30 @@
 import { test, expect } from '@playwright/test'
+import { sendMessage, waitForChatReady } from './helpers'
+
+const EXCHANGES = [
+  {
+    question: 'Queue up the tests',
+    answer: 'Queue is just Q with four impatient friends standing behind it.',
+  },
+  {
+    question: 'Programmers unite',
+    answer: 'Programmers don’t panic; we just `console.log` our feelings.',
+  },
+]
 
 test.describe('Homework 1: Getting started', () => {
   test('sending two messages shows their expected replies', async ({ page }) => {
+    const replies = page.getByTestId('message-assistant')
+
     await page.goto('/')
+    await waitForChatReady(page)
 
-    const chatInput = page.getByTestId('chat-input')
-    const sendButton = page.getByTestId('send-button')
+    for (const [index, { question, answer }] of EXCHANGES.entries()) {
+      await sendMessage(page, question)
+      await expect(replies).toHaveCount(index + 1)
+      await expect(replies.nth(index)).toHaveText(answer)
+    }
 
-    await expect(chatInput).toBeEnabled({ timeout: 15000 })
-
-    await chatInput.fill('Queue up the tests')
-    await sendButton.click()
-
-    const firstReply = page.getByTestId('message-assistant').first()
-    await expect(firstReply).toHaveText('Queue is just Q with four impatient friends standing behind it.')
-
-    await chatInput.fill('Programmers unite')
-    await sendButton.click()
-
-    const secondReply = page.getByTestId('message-assistant').last()
-    await expect(secondReply).toHaveText('Programmers don’t panic; we just `console.log` our feelings.')
+    await expect(page.getByTestId('message-user')).toHaveText(EXCHANGES.map((e) => e.question))
   })
 })
