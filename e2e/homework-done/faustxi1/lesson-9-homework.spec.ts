@@ -36,7 +36,7 @@ test('a delayed POST /api/chat response shows the loading indicator until it res
 })
 
 test('the app sends the exact payload src/api/chatApi.ts promises', async ({ page }) => {
-  let body: any
+  let body: unknown
   let method: string | undefined
   await page.route('**/api/chat', async (r) => {
     body = r.request().postDataJSON()

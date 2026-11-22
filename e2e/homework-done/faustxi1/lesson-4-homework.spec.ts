@@ -18,7 +18,6 @@ test('toggling funny mode, validating empty input, and submitting via keyboard',
   await input.pressSequentially('Then values')
   await expect(input).toHaveValue('Variables first\nThen values')
   await input.press('Enter')
-  await page.waitForTimeout(1000)
   await expect(input).toHaveValue('')
   await expect(page.getByTestId('message-assistant').last()).toHaveText('Variables hold hands with values in a strictly platonic scope.')
 })

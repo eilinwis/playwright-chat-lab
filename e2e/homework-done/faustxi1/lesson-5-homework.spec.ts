@@ -8,12 +8,12 @@ test('navigating and selecting a date in the calendar, then confirming the modal
   const heading = page.getByTestId('calendar-heading')
   await expect(page.getByTestId('playground-section-calendar')).toBeVisible()
   await expect(heading).toHaveText(/^[A-Za-z]+ \d{4}$/)
-  const initial = await heading.textContent()
+  const initial = (await heading.textContent()) ?? ''
   await page.getByTestId('calendar-next').click()
   await page.getByTestId('calendar-next').click()
-  expect(await heading.textContent()).not.toBe(initial)
+  await expect(heading).not.toHaveText(initial)
   const day = page.locator('[data-testid^="calendar-day-"]').first()
-  const iso = (await day.getAttribute('data-testid'))!.replace('calendar-day-', '')
+  const iso = (await day.getAttribute('data-testid') ?? '').replace('calendar-day-', '')
   await day.click()
   await expect(page.getByTestId('calendar-selected-date')).toHaveText(`Selected: ${iso}`)
   await page.getByTestId('modal-open-button').click()
@@ -46,7 +46,7 @@ test('combining a category toggle with a search query narrows and resets the res
 
 test('prev/next cancel out, today is marked in the grid, and clicking the active thumbnail again is a no-op', async ({ page }) => {
   const heading = page.getByTestId('calendar-heading')
-  const initial = (await heading.textContent())!
+  const initial = (await heading.textContent()) ?? ''
   await page.getByTestId('calendar-next').click()
   await page.getByTestId('calendar-prev').click()
   await expect(heading).toHaveText(initial)
