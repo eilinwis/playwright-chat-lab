@@ -1,0 +1,26 @@
+import { test, expect } from '@playwright/test'
+import { waitForChatReady } from './helpers'
+
+test.describe('Homework 4: Forms & input', () => {
+  test('toggling funny mode, validating empty input, and submitting via keyboard', async ({ page }) => {
+    const input = page.getByTestId('chat-input')
+    const toggle = page.getByTestId('funny-mode-toggle')
+    await page.goto('/')
+    await waitForChatReady(page)
+    await expect(toggle).toBeChecked()
+    await toggle.uncheck()
+    await expect(toggle).not.toBeChecked()
+    await toggle.check()
+    await expect(toggle).toBeChecked()
+    await input.fill('    ')
+    await expect(page.getByTestId('send-button')).toBeDisabled()
+    await input.clear()
+    await input.pressSequentially('Variables first')
+    await input.press('Shift+Enter')
+    await input.pressSequentially('Then values')
+    await expect(input).toHaveValue('Variables first\nThen values')
+    await input.press('Enter')
+    await expect(input).toHaveValue('')
+    await expect(page.getByTestId('message-assistant').last()).toHaveText('Variables hold hands with values in a strictly platonic scope.')
+  })
+})
