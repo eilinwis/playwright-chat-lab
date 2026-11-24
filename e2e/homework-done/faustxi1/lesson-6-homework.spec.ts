@@ -3,10 +3,13 @@ import { test as base, expect } from '@playwright/test'
 const test = base.extend<{ sendMessage: (text: string) => Promise<void> }>({
   sendMessage: async ({ page }, use) => {
     await use(async (text) => {
+      const replies = page.getByTestId('message-assistant')
       await expect(page.getByTestId('chat-input')).toBeEnabled({ timeout: 15_000 })
+      const before = await replies.count()
       await page.getByTestId('chat-input').fill(text)
       await page.getByTestId('send-button').click()
-      await expect(page.getByTestId('message-assistant').last()).toBeVisible()
+      await expect(replies).toHaveCount(before + 1)
+      await expect(replies.last()).toBeVisible()
     })
   },
 })
